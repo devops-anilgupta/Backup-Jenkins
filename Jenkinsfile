@@ -1,26 +1,22 @@
-pipeline{
+pipeline {
     agent any
 
-    stages{
-        stage('Jenkins Backup')
-        {
-               
-            steps{
-                echo "1. Staring the jenkins backup"
-                // sh '''
-                //     cd /var/lib
-                //     zip -r jenkins-backup.zip jenkins
-                // '''
-            }
-        }
-        stage('Upload to Jenkins compressed file to another server')
-        {
-            steps{
-                echo "2. Upload to Jenkins compressed file to another server" 
-                sh '''
-                    cd /
-                    scp ./testing-scp-copy.txt root@jenkins-slave:/home && rm ./testing-scp-copt.txt
-                '''
+    stages {
+        stage('SCP Copy File') {
+            steps {
+                script {
+                    echo 'Copying file using SCP...'
+                    
+                    // Ensure the file exists before attempting to copy
+                    sh '''
+                    if [ -f ./testing-scp-copy.txt ]; then
+                        scp -o StrictHostKeyChecking=no ./testing-scp-copy.txt root@jenkins-slave:/home || { echo "SCP failed"; exit 1; }
+                    else
+                        echo "File does not exist"
+                        exit 1
+                    fi
+                    '''
+                }
             }
         }
     }

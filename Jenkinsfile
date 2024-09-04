@@ -4,13 +4,14 @@ pipeline{
     stages{
         stage('Jenkins Backup')
         {
-            echo "1. Staring the jenkins backup"   
-            // steps{
-            //     sh '''
-            //         cd /var/lib
-            //         zip -r jenkins-backup.zip jenkins
-            //     '''
-            // }
+               
+            steps{
+                echo "1. Staring the jenkins backup"
+                // sh '''
+                //     cd /var/lib
+                //     zip -r jenkins-backup.zip jenkins
+                // '''
+            }
         }
         stage('Upload to Jenkins compressed file to another server')
         {

@@ -9,6 +9,7 @@ pipeline {
                     
                     // Ensure the file exists before attempting to copy
                     sh '''
+                    cd /
                     if [ -f ./testing-scp-copy.txt ]; then
                         scp -o StrictHostKeyChecking=no ./testing-scp-copy.txt root@jenkins-slave:/home || { echo "SCP failed"; exit 1; }
                     else

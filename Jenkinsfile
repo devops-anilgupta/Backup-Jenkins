@@ -16,6 +16,7 @@ pipeline{
         {
             steps{
                 sh '''
+                    cd /
                     scp ./testing-scp-copy.txt root@jenkins-slave:/home && rm ./testing-scp-copt.txt
                 '''
             }

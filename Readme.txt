@@ -1,0 +1,1 @@
+This project backup jenkin jobs, plungins and files

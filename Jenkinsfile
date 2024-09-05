@@ -8,7 +8,7 @@ pipeline {
                     // Ensure the local directory exists before proceeding
                     sh '''
                     if [ ! -d /home/ubuntu/temp ]; then
-                        mkdir -p /home/ubuntu/temp
+                        sudo mkdir -p /home/ubuntu/temp
                     fi
                     '''
                 }

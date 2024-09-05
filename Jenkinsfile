@@ -2,16 +2,32 @@ pipeline {
     agent any
 
     stages {
-        stage('SCP Copy File') {
+        stage('Prepare Environment') {
             steps {
                 script {
-                    echo 'Copying file using SCP...'
-                    
-                    // Ensure the file exists before attempting to copy
+                    // Ensure the directory exists before proceeding
                     sh '''
-                        cd /
-                        cd /home/ubuntu/temp
+                    if [ ! -d /home/ubuntu/temp ]; then
+                        mkdir -p /home/ubuntu/temp
+                    fi
+                    '''
+                }
+            }
+        }
+
+        stage('Copy Files via SCP') {
+            steps {
+                script {
+                    echo 'Copying files using SCP...'
+
+                    // Ensure SCP command is executed safely with no host key checking
+                    sh '''
+                    cd /home/ubuntu/temp
+                    if [ "$(ls -A .)" ]; then
                         scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
+                    else
+                        echo "No files to copy."
+                    fi
                     '''
                 }
             }

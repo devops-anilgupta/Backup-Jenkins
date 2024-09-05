@@ -9,9 +9,8 @@ pipeline {
                     
                     // Ensure the file exists before attempting to copy
                     sh '''
-                        sudo su -
-                        cd /root/.ssh
-                        scp -o StrictHostKeyChecking=no ./* root@jenkins-slave:/home
+                        cd /home/ubuntu/temp
+                        scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
                     '''
                 }
             }

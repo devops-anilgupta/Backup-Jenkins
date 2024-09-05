@@ -5,7 +5,7 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    // Ensure the directory exists before proceeding
+                    // Ensure the local directory exists before proceeding
                     sh '''
                     if [ ! -d /home/ubuntu/temp ]; then
                         mkdir -p /home/ubuntu/temp
@@ -20,11 +20,11 @@ pipeline {
                 script {
                     echo 'Copying files using SCP...'
 
-                    // Ensure SCP command is executed safely with no host key checking
+                    // Check if there are files in the directory and copy them via SCP
                     sh '''
                     cd /home/ubuntu/temp
                     if [ "$(ls -A .)" ]; then
-                        scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
+                        scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp || echo "SCP failed. Please check the connection or path."
                     else
                         echo "No files to copy."
                     fi

@@ -22,6 +22,7 @@ pipeline {
 
                     // Check if there are files in the directory and copy them via SCP
                     sh '''
+                    whoami
                     cd /home/ubuntu/temp
                     if [ "$(ls -A .)" ]; then
                         scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp || echo "SCP failed. Please check the connection or path."

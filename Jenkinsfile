@@ -8,7 +8,7 @@ pipeline {
                     // Ensure the local directory exists before proceeding
                     sh '''
                     whoami
-                    if [ ! -d /home/ubuntu/temp ]; then
+                    if [ ! -d /home/jenkins/temp ]; then
                         sudo mkdir -p /home/ubuntu/temp
                     fi
                     '''
@@ -24,7 +24,8 @@ pipeline {
                     // Check if there are files in the directory and copy them via SCP
                     sh '''
                     whoami
-                    cd /home/ubuntu/temp
+                    cd /
+                    cd /home/temp/
                     if [ "$(ls -A .)" ]; then
                         scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp || echo "SCP failed. Please check the connection or path."
                     else

@@ -7,6 +7,7 @@ pipeline {
                 script {
                     // Ensure the local directory exists before proceeding
                     sh '''
+                    whoami
                     if [ ! -d /home/ubuntu/temp ]; then
                         sudo mkdir -p /home/ubuntu/temp
                     fi

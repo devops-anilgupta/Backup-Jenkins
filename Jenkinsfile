@@ -46,7 +46,10 @@ pipeline {
                     cd /
                     cd /home/temp
                     sudo tar -czvf archive-name.tar.gz /var/lib/jenkins
-                    sudo scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
+                    echo 'file has been compressed'
+                    ls -la
+                    scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
+                    echo 'file has been transfrred'
                     '''
                 }
             }

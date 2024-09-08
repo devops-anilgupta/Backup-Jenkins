@@ -35,5 +35,21 @@ pipeline {
                 }
             }
         }
+        stage('Compressing Jenkins Files') {
+            steps {
+                script {
+                    echo 'Compressing & backup Jenkins files to SLAVE'
+
+                    // Check if there are files in the directory and copy them via SCP
+                    sh '''
+                    whoami
+                    cd /
+                    cd /home/temp
+                    tar -czvf archive-name.tar.gz /var/lib/jenkins
+                    scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
+                    '''
+                }
+            }
+        }
     }
 }

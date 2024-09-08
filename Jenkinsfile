@@ -26,12 +26,7 @@ pipeline {
                     whoami
                     cd /
                     cd /home/temp/
-                    if [ "$(ls -A .)" ]; then
-                        #scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp || echo "SCP failed. Please check the connection or path."
-                        scp -o StrictHostKeyChecking=no /home/temp/jenkins-file.tar.gz ubuntu@jenkins-slave:/home/temp
-                    else
-                        echo "No files to copy."
-                    fi
+                    rsync -avz -e "ssh -i /var/lib/jenkins/.ssh/id_rsa" /home/temp/jenkins-file.tar.gz ubuntu@jenkins-slave:/home/temp
                     '''
                 }
             }

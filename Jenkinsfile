@@ -46,7 +46,7 @@ pipeline {
                     cd /
                     cd /home/temp
                     sudo tar -czvf archive-name.tar.gz /var/lib/jenkins
-                    scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
+                    sudo scp -o StrictHostKeyChecking=no ./* ubuntu@jenkins-slave:/home/temp
                     '''
                 }
             }
